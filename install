@@ -1,0 +1,17 @@
+#!/bin/bash
+export HISTFILE=/dev/null
+
+read -p "Enter your directory:" dir 
+if [ -z "${dir}" ];then
+	dir=/tmp
+fi
+echo "directory is $dir"
+
+apt update && apt install wget openjdk-11-jdk git -y
+cd $dir && wget && unzip cs.zip && cd $dir/cs/
+mv -f teamserver.service /usr/lib/systemd/system/
+mv -f team /etc/
+systemctl enable teamserver.service
+systemctl start teamserver.service
+
+exit 0
